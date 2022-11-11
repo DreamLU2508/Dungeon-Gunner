@@ -1,5 +1,30 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6874447587909709643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb6a0fdc23f7a1478ebbdc499f3cfc3, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  id: b7aa252a-1d3a-45d4-ad6b-d63082002aec
+  parentRoomNodeIDList: []
+  childRoomNodeIDList: []
+  roomNodeGraph: {fileID: 11400000}
+  roomNodeType: {fileID: 11400000, guid: c0311fa9275d5b745842d234e17f472a, type: 2}
+  roomNodeTypeList: {fileID: 11400000, guid: 38e191c50b640a349b4cc81d18b06702, type: 2}
+  rect:
+    serializedVersion: 2
+    x: 112
+    y: 296
+    width: 160
+    height: 75
+  isLeftClickDragging: 0
 --- !u!114 &-2042801260189757145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20,10 +45,11 @@ MonoBehaviour:
   roomNodeTypeList: {fileID: 11400000, guid: 38e191c50b640a349b4cc81d18b06702, type: 2}
   rect:
     serializedVersion: 2
-    x: 270
-    y: 181
+    x: 95
+    y: 33
     width: 160
     height: 75
+  isLeftClickDragging: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,3 +65,30 @@ MonoBehaviour:
   roomNodeTypeList: {fileID: 0}
   roomNodeList:
   - {fileID: -2042801260189757145}
+  - {fileID: 3425836560885957455}
+  - {fileID: -6874447587909709643}
+--- !u!114 &3425836560885957455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb6a0fdc23f7a1478ebbdc499f3cfc3, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  id: 3e04e610-58fb-4d4b-acfb-b7a714a54802
+  parentRoomNodeIDList: []
+  childRoomNodeIDList: []
+  roomNodeGraph: {fileID: 11400000}
+  roomNodeType: {fileID: 11400000, guid: 71d19da62a6b15946b6570851dd490fb, type: 2}
+  roomNodeTypeList: {fileID: 11400000, guid: 38e191c50b640a349b4cc81d18b06702, type: 2}
+  rect:
+    serializedVersion: 2
+    x: 410
+    y: 60
+    width: 160
+    height: 75
+  isLeftClickDragging: 0
