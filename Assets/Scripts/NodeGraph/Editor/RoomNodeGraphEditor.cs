@@ -206,6 +206,8 @@ public class RoomNodeGraphEditor : EditorWindow
         GenericMenu menu = new GenericMenu();
 
         menu.AddItem(new GUIContent("Create room node"), false, CreateRoomNode, mousePosition);
+        menu.AddSeparator("");
+        menu.AddItem(new GUIContent("Select All Room Nodes"), false, SelectAllRoomNodes);
 
         menu.ShowAsContext();
     }
@@ -323,13 +325,26 @@ public class RoomNodeGraphEditor : EditorWindow
     }
 
     // clear all room node selected
-    public void ClearAllSelectedRoomNodes()
+    private void ClearAllSelectedRoomNodes()
     {
         foreach (RoomNodeSO roomNode in currentRoomNodeGraph.roomNodeList)
         {
             if (roomNode.isSelected)
             {
                 roomNode.isSelected = false;
+                GUI.changed = true;
+            }
+        }
+    }
+
+    // Select all room nodes
+    private void SelectAllRoomNodes()
+    {
+        foreach (RoomNodeSO roomNode in currentRoomNodeGraph.roomNodeList)
+        {
+            if (!roomNode.isSelected)
+            {
+                roomNode.isSelected = true;
                 GUI.changed = true;
             }
         }
