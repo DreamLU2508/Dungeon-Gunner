@@ -19,7 +19,7 @@ public class RoomNodeSO : ScriptableObject
 
     [HideInInspector] public Rect rect;
     [HideInInspector] public bool isLeftClickDragging = false;
-    //[HideInInspector] public bool isSelected = false;
+    [HideInInspector] public bool isSelected = false;
 
     // Initialise node
     public void Initialise(Rect rect, RoomNodeGraphSO roomNodeGraph, RoomNodeTypeSO roomNodeType)
@@ -44,12 +44,19 @@ public class RoomNodeSO : ScriptableObject
         // Start Region To Detect Popup Selection Changes
         EditorGUI.BeginChangeCheck();
 
-        // Display a popup using the RoomNodeType name values that can selected from (default to the currently set roomNodeType)
-        int selected = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
+        if(parentRoomNodeIDList.Count > 0 || roomNodeType.isEntrance)
+        {
+            EditorGUILayout.LabelField(roomNodeType.roomNodeTypeName);
+        }
+        else
+        {
+            // Display a popup using the RoomNodeType name values that can selected from (default to the currently set roomNodeType)
+            int selected = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
 
-        int selection = EditorGUILayout.Popup("", selected, GetRoomNodeTypesToDisplay());
+            int selection = EditorGUILayout.Popup("", selected, GetRoomNodeTypesToDisplay());
 
-        roomNodeType = roomNodeTypeList.list[selection];
+            roomNodeType = roomNodeTypeList.list[selection];
+        }
 
         if (EditorGUI.EndChangeCheck())
         {
@@ -120,15 +127,15 @@ public class RoomNodeSO : ScriptableObject
     {
         Selection.activeObject = this;
 
-        // Toggle node selection
-        //if(isSelected == true)
-        //{
-        //    isSelected = false;
-        //}
-        //else
-        //{
-        //    isSelected = true;
-        //}
+        //Toggle node selection
+        if (isSelected == true)
+        {
+            isSelected = false;
+        }
+        else
+        {
+            isSelected = true;
+        }
     }
 
     // Process Mouse up Event
