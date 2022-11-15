@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class RoomNodeSO : ScriptableObject
 {
-    [HideInInspector] public string id;
-    [HideInInspector] public List<string> parentRoomNodeIDList = new List<string>();
-    [HideInInspector] public List<string> childRoomNodeIDList = new List<string>();
+     public string id;
+     public List<string> parentRoomNodeIDList = new List<string>();
+     public List<string> childRoomNodeIDList = new List<string>();
     [HideInInspector] public RoomNodeGraphSO roomNodeGraph;
     public RoomNodeTypeSO roomNodeType;
     [HideInInspector] public RoomNodeTypeListSO roomNodeTypeList;
@@ -56,6 +56,32 @@ public class RoomNodeSO : ScriptableObject
             int selection = EditorGUILayout.Popup("", selected, GetRoomNodeTypesToDisplay());
 
             roomNodeType = roomNodeTypeList.list[selection];
+
+            
+            if (roomNodeTypeList.list[selected].isCorridor && !roomNodeTypeList.list[selection].isCorridor ||
+                !roomNodeTypeList.list[selected].isCorridor && roomNodeTypeList.list[selection].isCorridor ||
+                !roomNodeTypeList.list[selected].isBossRoom && roomNodeTypeList.list[selection].isBossRoom)
+            {
+                
+                if (childRoomNodeIDList.Count > 0)
+                {
+                    for (int i = childRoomNodeIDList.Count - 1; i >= 0; i--)
+                    {
+                        // Get child room node
+                        RoomNodeSO childRoomNode = roomNodeGraph.GetRoomNodeByID(childRoomNodeIDList[i]);
+
+                        if (childRoomNode != null)
+                        {
+                            // Remove childID from parent node 
+                            RemoveChildRoomNoneFromRoomNode(childRoomNode.id);
+
+                            // Remove parentID from child node 
+                            childRoomNode.RemoveParentRoomNoneFromRoomNode(id);
+                        }
+                    }
+                }
+            }
+
         }
 
         if (EditorGUI.EndChangeCheck())
@@ -194,6 +220,30 @@ public class RoomNodeSO : ScriptableObject
         if (IsChildRoomValidate(childID))
         {
             childRoomNodeIDList.Add(childID);
+            return true;
+        }
+        return false;
+    }
+
+    // Remove parentID from the node (return true if the node has been removed, false otherwise)
+    public bool RemoveParentRoomNoneFromRoomNode(string parentID)
+    {
+        // if the node contains the parentID then remove it
+        if (parentRoomNodeIDList.Contains(parentID))
+        {
+            parentRoomNodeIDList.Remove(parentID);
+            return true;
+        }
+        return false;
+    }
+
+    // Remove childID from the node (return true if the node has been removed, false otherwise)
+    public bool RemoveChildRoomNoneFromRoomNode(string childID)
+    {
+        // if the node contains the parentID then remove it
+        if (childRoomNodeIDList.Contains(childID))
+        {
+            childRoomNodeIDList.Remove(childID);
             return true;
         }
         return false;
